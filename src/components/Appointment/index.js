@@ -33,7 +33,8 @@ export default function Appointment(props) {
       {mode === CREATE && (
         <Form
         //optional chaining null or undefined check
-        interviewer={(props.interview?.interviewer)} 
+        // interviewer={(props.interview?.interviewer)}
+        interviewer={(props.interview ? props.interview.interviewer : null)} 
         interviewers = {[]}
         onCancel = {back}
         
