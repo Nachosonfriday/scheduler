@@ -6,44 +6,7 @@ import DayList from "components/DayList"
 import Appointment from "components/Appointment"
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
-// const appointments = {
-//   "1": {
-//     id: 1,
-//     time: "12pm",
-//   },
-//   "2": {
-//     id: 2,
-//     time: "1pm",
-//     interview: {
-//       student: "Lydia Miller-Jones",
-//       interviewer:{
-//         id: 3,
-//         name: "Sylvia Palmer",
-//         avatar: "https://i.imgur.com/LpaY82x.png",
-//       }
-//     }
-//   },
-//   "3": {
-//     id: 3,
-//     time: "2pm",
-//   },
-//   "4": {
-//     id: 4,
-//     time: "3pm",
-//     interview: {
-//       student: "Archie Andrews",
-//       interviewer:{
-//         id: 4,
-//         name: "Cohana Roy",
-//         avatar: "https://i.imgur.com/FK8V841.jpg",
-//       }
-//     }
-//   },
-//   "5": {
-//     id: 5,
-//     time: "4pm",
-//   }
-// };
+
 
 
 
@@ -73,7 +36,7 @@ export default function Application(props) {
     }, [])
   
 
-  // apointment functions
+  // appointment functions
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -83,21 +46,29 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-    setState({
-      ...state,
-      appointments
-    });
+    return axios.put(`/api/appointments/${id}`, appointment )
+    .then((response) =>  console.log(response))
+    .then (() => setState({
+        ...state,
+        appointments
+      })
+    )
+    // .catch(err, "its broken")
+  }
+
+  function cancelInterview(id) {
+   
+    console.log("test")
+    return axios.delete(`/api/appointments/${id}` )
+    .then((response) => console.log(response))
   }
   
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
-
-  console.log("daily appointments:", dailyAppointments)
   
   const appointment = dailyAppointments.map((appointmentObject) => {
     const interview = getInterview(state, appointmentObject.interview);
-    console.log("appoitnment", appointmentObject, interview)
     return (
       <Appointment 
         key={appointmentObject.id}
@@ -105,6 +76,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
       )
     })

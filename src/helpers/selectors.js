@@ -25,7 +25,6 @@ export function getInterview(state, interview) {
 }
 
 export function getInterviewersForDay(state, day) {
-  // console.log('state', state)
   
   let appointmentArray = state.days.find(dayObject => dayObject.name === day);
   if (state.days.length === 0 || appointmentArray === undefined) {
