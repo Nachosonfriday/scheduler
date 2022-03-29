@@ -7,9 +7,6 @@ import Appointment from "components/Appointment"
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 
-
-
-
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
@@ -80,6 +77,7 @@ export default function Application(props) {
   
   const appointment = dailyAppointments.map((appointmentObject) => {
     const interview = getInterview(state, appointmentObject.interview);
+    console.log("appointmentobj", interview)
     return (
       <Appointment 
         key={appointmentObject.id}

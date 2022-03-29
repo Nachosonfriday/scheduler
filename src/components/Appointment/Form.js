@@ -6,6 +6,7 @@ import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
 
 export default function Form(props) {
+  console.group("form props", props)
  
 
   const [student, setStudent] = useState(props.student || "");
