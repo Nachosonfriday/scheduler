@@ -6,6 +6,8 @@ import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
 
 export default function Form(props) {
+ 
+
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
@@ -19,6 +21,13 @@ export default function Form(props) {
     reset()
     props.onCancel()
   }
+
+  const save = () => {
+    if(student.length) {
+     return props.onSave(student, interviewer)
+    }
+  }
+  
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -36,13 +45,14 @@ export default function Form(props) {
     <InterviewerList 
       interviewers={props.interviewers}
       value={interviewer}
-      onChange={(event) => setInterviewer(event)}
+      onChange={setInterviewer}
     />
   </section>
   <section className="appointment__card-right">
     <section className="appointment__actions">
       <Button danger onClick={cancel}>Cancel</Button>
-      <Button confirm onClick={props.onSave}>Save</Button>
+      <Button confirm onClick={save}
+      >Save</Button>
     </section>
   </section>
 </main>

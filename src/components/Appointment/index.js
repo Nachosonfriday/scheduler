@@ -10,7 +10,6 @@ import useVisualMode from "hooks/useVisualMode";
 import "components/Appointment/styles.scss";
 
 export default function Appointment(props) {
-  console.log("test", props)
 
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
@@ -19,7 +18,25 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-    console.log("mode", mode)
+
+  function save(name, interviewer) {
+    console.log("save():", name, interviewer)
+    const interview = {
+      student: name,
+      interviewer
+    };
+    props.bookInterview(props.id, interview)
+    // .then(() => transition(SHOW))
+    transition(SHOW)
+    
+  }
+
+
+  
+    
+  
+
+
   return (
     <article className="appointment">
       <Header time={props.time} />
@@ -32,12 +49,10 @@ export default function Appointment(props) {
       )}
       {mode === CREATE && (
         <Form
-        //optional chaining null or undefined check
-        // interviewer={(props.interview?.interviewer)}
         interviewer={(props.interview ? props.interview.interviewer : null)} 
-        interviewers = {[]}
+        interviewers = {props.interviewers}
         onCancel = {back}
-        
+        onSave={save}
       />
       )}
     </article>
