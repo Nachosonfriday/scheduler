@@ -10,9 +10,6 @@ const [state, setState] = useState({
   interviewers:{}
 });
 const setDay = day => setState({ ...state, day });
-// console.log("state.days spread", [...state.days])
-// console.log("state.days", Object.values(state.days))
-// console.log("single day", state.days.find(day => day.name === state.day))
 
   const updateSpots = function(appointments) {
     //find the day

@@ -9,6 +9,7 @@ export default function Form(props) {
 
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [error, setError] = useState("");
 
   // helper function to clear fields
   const reset = () => {
@@ -22,9 +23,20 @@ export default function Form(props) {
   }
 
   const save = () => {
-    if(student.length) {
-     return props.onSave(student, interviewer)
+    if(!student.length){
+      validate()
+      return
     }
+    return props.onSave(student, interviewer)   
+  }
+
+  const validate = () => {
+    if (student === '') {
+      setError("Student name cannot be blank");
+      return;
+    }
+  
+    props.onSave(student, interviewer);
   }
   
 
@@ -39,8 +51,10 @@ export default function Form(props) {
         placeholder="Enter Student Name"
         value={student}
         onChange={(event) => setStudent(event.target.value)}
+        data-testid="student-name-input"
       />
     </form>
+    <section className="appointment__validation">{error}</section>
     <InterviewerList 
       interviewers={props.interviewers}
       value={interviewer}
