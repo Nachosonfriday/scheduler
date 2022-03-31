@@ -10,6 +10,32 @@ const [state, setState] = useState({
   interviewers:{}
 });
 const setDay = day => setState({ ...state, day });
+// console.log("state.days spread", [...state.days])
+// console.log("state.days", Object.values(state.days))
+// console.log("single day", state.days.find(day => day.name === state.day))
+
+  const updateSpots = function(appointments) {
+    //find the day
+    const dayObj = state.days.find(d => d.name === state.day)
+
+    //calculate spots
+    let spots = 0;
+    for (const id of dayObj.appointments) {
+      const appointment = appointments[id];
+      if (!appointment.interview) {
+        spots++
+      }
+    }
+
+    const day = { ...dayObj,spots }
+
+    //update days Array
+    const days = state.days.map(d => d.name === state.day ? day : d);
+
+    //return an updated days array
+    return days;
+  }
+
 
 useEffect(() => {
   Promise.all([
@@ -36,13 +62,11 @@ useEffect(() => {
       [id]: appointment
     };
     return axios.put(`/api/appointments/${id}`, appointment )
-      .then((response) =>  console.log(response))
-      .then (() => setState({
-        ...state,
-        appointments
+      .then((response) =>  {
+        const days = updateSpots(appointments)
+        setState({...state,days,appointments})
       })
-    )
-  }
+   }
 
   function cancelInterview(id) {
     const appointment = {
@@ -54,12 +78,10 @@ useEffect(() => {
       [id]: appointment
     };
     return axios.delete(`/api/appointments/${id}`)
-      .then((response) => console.log(response))
-      .then(() => setState({
-        ...state,
-        appointments
-      })
-    )
+    .then((response) =>  {
+      const days = updateSpots(appointments)
+      setState({...state,days,appointments})
+    })
   }
 
   return {

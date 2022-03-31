@@ -13,7 +13,6 @@ import useVisualMode from "hooks/useVisualMode";
 import "components/Appointment/styles.scss";
 
 export default function Appointment(props) {
-  console.log("props",props)
 
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
@@ -37,7 +36,8 @@ export default function Appointment(props) {
     transition(SAVING)
     props.bookInterview(props.id, interview)
     .then(() => transition(SHOW))
-    .catch(() => transition(ERROR_SAVE, true)) 
+    .catch((error) => console.log("error", error)) 
+    // .catch(() => transition(ERROR_SAVE, true))
   }
 
   function remove() { 
