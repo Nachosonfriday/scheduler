@@ -11,9 +11,9 @@ Testing: Storybook, Webpack Dev Server, Jest, Testing Library and Cypress
 
 # Screenshots
 
-!["Screenshot of scheduling an appointment] ()
-!["Screenshot of saving an appointment] ()
-!["Screenshot of deleting an appointment] ()
+!["Screenshot of scheduling an appointment] (https://github.com/Nachosonfriday/scheduler/blob/master/docs/Schedule%20an%20appointment.png)
+!["Screenshot of saving an appointment] (https://github.com/Nachosonfriday/scheduler/blob/master/docs/Saved%20an%20appointment.png)
+!["Screenshot of deleting an appointment] (https://github.com/Nachosonfriday/scheduler/blob/master/docs/Delete%20an%20appointment.png)
 
 ## Setup
 
