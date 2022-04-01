@@ -11,15 +11,15 @@ const formatSpots = (spots) => {
     return `1 spot remaining`;
   }
   return `${spots} spots remaining`;
-}
+};
 
 export default function DayListItem(props) {
   const dayListClass = classNames("day-list__item", {
     "day-list__item--selected": props.selected,
-    "day-list__item--full": props.spots === 0
+    "day-list__item--full": props.spots === 0,
   });
 
-  const availability = formatSpots(props.spots)
+  const availability = formatSpots(props.spots);
 
   return (
     <li className={dayListClass} onClick={() => props.setDay(props.name)}>
